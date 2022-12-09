@@ -1,0 +1,73 @@
+body {
+    background-color: black;
+    margin: 0;
+    padding: 0;
+}
+
+.head {
+display: inline-flex;
+width: 100%;
+height: 100px;
+justify-content: space-between;
+}
+
+
+.logo {
+   color: azure;
+   font-family: Impact, fantasy;
+ font-size: 40px;
+ align-self: center;
+ margin-left: 70px;
+}
+
+.cart-button {
+align-self: center;
+margin-right: 70px;
+width: 100px;
+height: 40px;
+font-family: Impact, fantasy;
+background-color: black;
+color: azure;
+font-size: 20px;
+}
+
+.goods-list {
+margin-top: 100px;
+justify-content: center;
+}
+.goods-item {
+
+    width: 700px;
+    height: 350px;
+    display: inline-grid;
+    margin-bottom: 50px;
+    align-content: center;
+    justify-content: center;
+    position: relative;
+}
+.goods-item-image{
+    width: 600px;
+    height: 350px;
+   
+}
+.goods-item-text {
+color: azure;
+font-family: Impact, fantasy;
+font-size: 40px;
+position: absolute;
+top: 30%;
+left: 47%;
+}
+
+.goods-item-price {
+    color: azure;
+    font-family: Impact, fantasy;
+    font-size: 15px;
+    position: absolute; 
+    top: 50%;
+    left: 48%;   
+}
+
+.goods-item-button{
+    background-color: black;
+}
