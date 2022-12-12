@@ -8,17 +8,33 @@ const goods = [
     { title: 'N6', price: 550, image: 'img/6.jpg' },
 
   ];
+
+  const GET_GOODS_ITEMS = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/catalogData.json';
+  const GET_BASKET_GOODS_ITEMS = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/getBasket.json';
+  const ADD_BASKET_GOODS_ITEMS = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/addToBasket.json';
+const DELETE_BASKET_GOODS_ITEMS = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/deleteFromBasket.json';
+
+
+  function service (url, callback) {
+    xhr = new XMLHttpRequest();
+    xhr.open('GET', url);
+    xhr.send();
+    xhr.onload = () => {
+        callback(JSON.parse(xhr.response))
+    }
+  }
   
+
 class GoodsItem {
-    constructor ({title = 'Carpet', price = 100, image}) {
-        this.title = title;
+    constructor ({product_name = 'Carpet', price = 100, image}) {
+        this.product_name = product_name;
         this.price = price;
         this.image = image;
     }
     render () {
         return `
         <div class="goods-item">
-          <h3 class="goods-item-text">${this.title}</h3>
+          <h3 class="goods-item-text">${this.product_name}</h3>
           <p class="goods-item-price">${this.price}</p>
           <button class="goods-item-button"><image class="goods-item-image" src="${this.image}"></image></button>
           </div>`;
@@ -27,8 +43,11 @@ class GoodsItem {
 
 class GoodsList {
     items = [];
-    fetchGoods () {
-        this.items = goods;
+    fetchGoods (callback) {
+        service(GET_GOODS_ITEMS, (data) => {
+            this.items = data;
+            callback()
+        });
     }
         calculatePrice() {
             return this.items.reduce((prev, { price }) => {
@@ -43,7 +62,42 @@ class GoodsList {
         document.querySelector('.goods-list').innerHTML = goods;
     }
 }
+
+class GoodsBasket () {
+    items = [];
+    fetchGoods (callback) {
+        service(GET_BASKET_GOODS_ITEMS, (data) => {
+            this.items = data;
+            callback()
+        });
+    };
+};
+
+class AddGoodsBasket (){
+    items = [];
+    fetchGoods (callback) {
+        service(ADD_BASKET_GOODS_ITEMS, (data) => {
+            this.items = data;
+            callback()
+        });
+    };
+};
+
+class DeleteGoodsBasket (){
+    items = [];
+    fetchGoods (callback) {
+        service(DELETE_BASKET_GOODS_ITEMS, (data) => {
+            this.items = data;
+            callback()
+        });
+    };
+};
+
   
 const goodsList = new GoodsList;
-goodsList.fetchGoods();
-goodsList.render();
+goodsList.fetchGoods(() => {
+    goodsList.render();
+});
+
+const basketGoodsList = new BasketGoodsList();
+basketGoodsList.fetchGoods();
