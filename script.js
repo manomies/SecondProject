@@ -67,32 +67,11 @@ class GoodsBasket () {
     items = [];
     fetchGoods (callback) {
         service(GET_BASKET_GOODS_ITEMS, (data) => {
-            this.items = data;
+            this.items = data.contents;
             callback()
         });
     };
 };
-
-class AddGoodsBasket (){
-    items = [];
-    fetchGoods (callback) {
-        service(ADD_BASKET_GOODS_ITEMS, (data) => {
-            this.items = data;
-            callback()
-        });
-    };
-};
-
-class DeleteGoodsBasket (){
-    items = [];
-    fetchGoods (callback) {
-        service(DELETE_BASKET_GOODS_ITEMS, (data) => {
-            this.items = data;
-            callback()
-        });
-    };
-};
-
   
 const goodsList = new GoodsList;
 goodsList.fetchGoods(() => {
