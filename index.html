@@ -2,25 +2,33 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Carpet</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
+    <script src="script.js"></script>
 </head>
 <body>
+ <div id="root">
     <header class="head">
         <div class="logo">CARPET</div>
         <div class="search">
-            <input type="text" class="goods-search" />
-            <button class="search-button">искать</button>
+            <input type="text" class="goods-search" v-model="search" />
+            <button class="search-button" v-on:click="filterItems">искать</button>
         </div>
-        <button class="cart-button" type="button"> корзина
-        </button>
+        <div class="actions">
+            <button class="cart-button" type="button">корзина</button>
+         </div>
     </header>
     <main>
-        <div class="goods-list"></div>
-      
+        <div class="goods-list">
+            <div class="goods-item" v-for="item in sortItems">
+                <h3 class="goods-item-text">{{ item.product_name }}</h3>
+                <p class="goods-item-price">{{ item.price }}</p>
+                </div>
+        </div>  
     </main>
- <script src="script.js"></script>
+    <div>{{ calculatePrice }}</div>
+ </div>
+
 </body>
 </html>

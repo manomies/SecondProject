@@ -20,7 +20,7 @@ const goods = [
 
   
 
-class GoodsItem {
+/*class GoodsItem {
     constructor ({product_name = 'Carpet', price = 100, image}) {
         this.product_name = product_name;
         this.price = price;
@@ -77,19 +77,52 @@ class GoodsBasket {
     };
 };
   
-const goodsList = new GoodsList ();
-goodsList.fetchGoods().then(() => {
-        goodsList.render();
-})
+//const goodsList = new GoodsList ();
+//goodsList.fetchGoods().then(() => {
+//        goodsList.render();
+//})
 
-const basketGoodsList = new basketGoodsList();
-basketGoodsList.fetchGoods();
+//const basketGoodsList = new basketGoodsList();
+//basketGoodsList.fetchGoods();
 
-const button = document.getElementsByClassName('search-button')[0];
-button.addEventListener('click', () => {
-    const value = document.getElementsByClassName('goods-search')[0].value
-    goodsList.filterItems(value);
+//const button = document.getElementsByClassName('search-button')[0];
+//button.addEventListener('click', () => {
+  //  const value = document.getElementsByClassName('goods-search')[0].value
+   // goodsList.filterItems(value);
+// goodsList.render();
+//})*/
 
-    goodsList.render();
-
-})
+function init() {
+const app = new Vue({
+el: '#root',
+data: {
+    items: [],
+    sortItems: [],
+    search: ''
+},
+methods: {
+    fetchGoods() {
+         service(GET_GOODS_ITEMS).then((data) => {
+            this.items = data;
+            this.sortItems = data;
+        });
+    },
+    filterItems(value) {
+        this.sortItems = this.items.filter(({ product_name }) => {
+          return product_name.match(new RegExp(this.search, 'gui'))
+        })
+      },
+}, 
+computed: {
+   calculatePrice() {
+       return this.sortItems.reduce((prev, { price }) => {
+         return prev + price;
+    }, 0)
+    }
+},    
+mounted() {
+    this.fetchGoods();
+}
+  })  
+}
+window.onload = init;
