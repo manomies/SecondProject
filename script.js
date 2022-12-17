@@ -11,18 +11,13 @@ const goods = [
 
   const GET_GOODS_ITEMS = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/catalogData.json';
   const GET_BASKET_GOODS_ITEMS = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/getBasket.json';
-  const ADD_BASKET_GOODS_ITEMS = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/addToBasket.json';
-const DELETE_BASKET_GOODS_ITEMS = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/deleteFromBasket.json';
 
 
-  function service (url, callback) {
-    xhr = new XMLHttpRequest();
-    xhr.open('GET', url);
-    xhr.send();
-    xhr.onload = () => {
-        callback(JSON.parse(xhr.response))
-    }
-  }
+
+  function service (url) {
+  return fetch(url).then((res) => res.json())
+}
+
   
 
 class GoodsItem {
@@ -43,11 +38,13 @@ class GoodsItem {
 
 class GoodsList {
     items = [];
-    fetchGoods (callback) {
-        service(GET_GOODS_ITEMS, (data) => {
+    sortItems = [];
+    fetchGoods () {
+        return service(GET_GOODS_ITEMS).then((data) => {
             this.items = data;
-            callback()
+            this.sortItems = data;
         });
+
     }
         calculatePrice() {
             return this.items.reduce((prev, { price }) => {
@@ -55,28 +52,44 @@ class GoodsList {
             }, 0)
           }
     render () {
-        const goods = this.items.map(item => {
+        const goods = this.sortItems.map(item => {
             const goodItem = new GoodsItem(item);
             return goodItem.render()
         }).join('')
         document.querySelector('.goods-list').innerHTML = goods;
     }
+
+
+
+    filterItems(value) {
+        this.sortItems = this.items.filter(({ product_name }) => {
+          return product_name.match(new RegExp(value, 'gui'))
+        })
+      }
 }
 
-class GoodsBasket () {
+class GoodsBasket {
     items = [];
-    fetchGoods (callback) {
-        service(GET_BASKET_GOODS_ITEMS, (data) => {
+    fetchGoods () {
+       return service(GET_BASKET_GOODS_ITEMS).then((data) => {
             this.items = data.contents;
-            callback()
         });
     };
 };
   
-const goodsList = new GoodsList;
-goodsList.fetchGoods(() => {
-    goodsList.render();
-});
+const goodsList = new GoodsList ();
+goodsList.fetchGoods().then(() => {
+        goodsList.render();
+})
 
-const basketGoodsList = new BasketGoodsList();
+const basketGoodsList = new basketGoodsList();
 basketGoodsList.fetchGoods();
+
+const button = document.getElementsByClassName('search-button')[0];
+button.addEventListener('click', () => {
+    const value = document.getElementsByClassName('goods-search')[0].value
+    goodsList.filterItems(value);
+
+    goodsList.render();
+
+})
