@@ -10,30 +10,39 @@
 <body>
  <div id="root">
     <header class="head">
-        <div class="logo">CARPET</div>
-        <div class="search">
-            <input type="text" class="goods-search" v-model="search" v-on:keyup="filterItems">
-            
+        <div class="head_tittle">CARPET</div>
+        <div class="head_search">
+            <input type="text" v-model="search" v-on:keyup="filterItems">
+ 
         </div>
         <div class="actions">
             <button class="cart-button" type="button"  v-on:click="show = !show">корзина</button>
-            <transition name="fade">
-                <div class="basket" v-if="show">тут пусто</div>
-              </transition>
          </div>
     </header>
     <main>
   <div>
   
         <div class="goods-list" >
-            <div class="goods-item" v-for="item in sortItems" >
-                <h3 class="goods-item-text">{{ item.product_name }}</h3>
-                <p class="goods-item-price">{{ item.price }}</p>
-                </div>
+            <goods-item 
+            v-for="item in sortItems"
+             v-bind:item="item">
+            </goods-item>
         </div>  
   </div>
-    </main>
+  <transition name="fade">
+  <div class="fixed-area" v-if="show">
+    <div class="basket-card">
+        <div class="basket-card__header">
+            <div class="basket-card_header_title">basket card</div>
+            <div class="basket-card_header_delete-ikon"></div>
+        </div>
+        <div class="basket-card_content">content</div>
+    </div>
     <div>{{ calculatePrice }}</div>
+  </div>
+</transition>
+    </main>
+   
  </div>
 
 </body>

@@ -7,7 +7,22 @@
   return fetch(url).then((res) => res.json())
 }
 
-  
+  function init() {
+
+    const goodItem = Vue.component('goods-item', {
+      props: [
+         'item',
+         'title',
+         'price'
+      ],
+      template: `
+        <div class="goodsItem">
+           <h3 class="goodsItem_text">{{ item.product_name }}</h3>
+           <p class="goodsItem_price">{{ item.price }}</p>
+        </div>
+      `
+    })
+  }
 
 /*class GoodsItem {
     constructor ({product_name = 'Carpet', price = 100, image}) {
@@ -73,8 +88,8 @@ data: {
     items: [],
     sortItems: [],
     search: '',
-    show: false,
-  //  isEmpty: true
+    show: false, 
+
 },
 methods: {
     fetchGoods() {

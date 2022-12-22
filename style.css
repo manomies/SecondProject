@@ -9,6 +9,7 @@ html, body, #root {
     background-color: black;
    margin: 0px;
    padding: 0px;
+   
 }
 
 .head {
@@ -18,23 +19,7 @@ height: 100px;
 justify-content: space-between;
 }
  
-.search {
-    align-self: center;
-    
-}
-
-.search-button {
-
-    align-self: center;
-width: 100px;
-height: 40px;
-font-family: Impact, fantasy;
-background-color: black;
-color: azure;
-font-size: 20px;
-}
-
-.logo {
+.head_tittle {
    color: azure;
    font-family: Impact, fantasy;
  font-size: 40px;
@@ -42,38 +27,52 @@ font-size: 20px;
  margin-left: 70px;
 }
 
-.cart-button {
-align-content: center;
-padding-top: 40px;
-margin-right: 70px;
-width: 100px;
-height: 40px;
-font-family: Impact, fantasy;
-background-color: black;
-color: azure;
-font-size: 20px;
+.head_search {
+    align-self: center;
+    
 }
 
-.basket {
-width: 250px;
-height: 500px;
-background-color: azure;
-font-family: Impact, fantasy;
-margin-top: 20px;
-padding-top: 40px;
-padding-left: 40px;
+.fixed-area {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.empty {
+.basket-card {
+    width: 80%;
+    height: 80%;
+    background-color: azure;
+    display: grid;
+    grid-template-rows: max-content auto;
+}
+
+.basket-card__header {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: auto max-content;
     font-family: Impact, fantasy;
-    color: azure;
-font-size: 20px;
+    font-size: 30px;
 }
+
+.basket-card_header_title {
+    padding: 10px;
+    font-family: Impact, fantasy;
+    font-size: 30px;
+}
+
+.basket-card_content {
+    padding: 10px;
+    font-family: Impact, fantasy;
+    font-size: 15px;
+}
+
 .goods-list {
 margin-top: 100px;
 justify-content: center;
 }
-.goods-item {
+.goodsItem {
 
     width: 700px;
     height: 350px;
@@ -83,12 +82,7 @@ justify-content: center;
     justify-content: center;
     position: relative;
 }
-.goods-item-image{
-    width: 600px;
-    height: 350px;
-   
-}
-.goods-item-text {
+.goodsItem_text {
 color: azure;
 font-family: Impact, fantasy;
 font-size: 40px;
@@ -97,7 +91,7 @@ top: 30%;
 left: 47%;
 }
 
-.goods-item-price {
+.goodsItem_price {
     color: azure;
     font-family: Impact, fantasy;
     font-size: 15px;
@@ -106,6 +100,3 @@ left: 47%;
     left: 48%;   
 }
 
-.goods-item-button{
-    background-color: black;
-}
